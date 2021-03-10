@@ -13,6 +13,8 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 	Parole elenco ;
+    @FXML
+    private TextArea txtTime;
 
     @FXML
     private ResourceBundle resources;
@@ -31,14 +33,42 @@ public class FXMLController {
 
     @FXML
     private Button btnReset;
+    @FXML
+    private Button btnCancella;
+
+    @FXML
+    void doCancella(ActionEvent event) {
+    	if(!elenco.getElenco().contains(txtParola.getText())) {
+    		txtResult.setText(elenco.toString()+"Errore parola non presente nella lista");
+    		return;
+    	}
+    	elenco.cancella(txtParola.getText());
+    	txtResult.setText(elenco.toString());
+    	double time=System.nanoTime();
+        elenco.addTempo(time);
+        txtTime.setText(elenco.stampaTempi());
+    }
 
     @FXML
     void doInsert(ActionEvent event) {
+    	
+    	elenco.addParola(txtParola.getText());
+    	String s=elenco.toString();
+    	txtResult.setText(s);
+    	double time=System.nanoTime();
+        elenco.addTempo(time);
+        txtTime.setText(elenco.stampaTempi());
+        txtParola.setText("");
     	// TODO
     }
 
     @FXML
     void doReset(ActionEvent event) {
+    	elenco.reset();
+    	txtResult.setText(elenco.toString());
+    	double time=System.nanoTime();
+        elenco.addTempo(time);
+        txtTime.setText(elenco.stampaTempi());
     	// TODO
     }
 
@@ -49,6 +79,6 @@ public class FXMLController {
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'Scene.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'Scene.fxml'.";
 
-        elenco = new Parole() ;
+        elenco = new Parole(null) ;
     }
 }

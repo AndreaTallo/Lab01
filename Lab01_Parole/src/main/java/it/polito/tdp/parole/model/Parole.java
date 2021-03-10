@@ -1,24 +1,57 @@
 package it.polito.tdp.parole.model;
 
-import java.util.List;
+
+import java.util.*;
 
 public class Parole {
-		
-	public Parole() {
-		//TODO
-	}
+	//Ci sta meno tempo la LinkedList
+	private String parola;
+	//private LinkedList<String> listaParole;
+	ArrayList<String> listaParole;
+	private LinkedList<Double> listaTempi;
 	
+	public Parole(String parola) {
+		this.parola=parola;
+		//listaParole=new LinkedList<String>();
+		listaTempi=new LinkedList<>();
+		listaParole=new ArrayList<String>();
+		
+		
+	}
+
 	public void addParola(String p) {
+		listaParole.add(p);
+		
 		//TODO
 	}
 	
 	public List<String> getElenco() {
 		//TODO
-		return null;
+		return listaParole;
 	}
 	
 	public void reset() {
-		// TODO
+		listaParole.clear();
 	}
-
+	public void cancella(String s) {
+		listaParole.remove(s);
+	}
+	public void addTempo(double s) {
+		listaTempi.add(s);
+	}
+	@Override
+	public String toString() {
+		String s="";
+		for(String ss:listaParole)
+			s=s+ss+"\n";
+		return s;
+	}
+	public String stampaTempi() {
+		String s="";
+		for (double dd:listaTempi)
+			s=s+dd+"\n";
+		return s;
+	}
+	
+	
 }
